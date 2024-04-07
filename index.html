@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Calculator</title>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-image: url('gray.png');
+        background-size: cover; 
+        background-repeat: no-repeat; 
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+        margin: 10%;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .container {
+        background-color: rgba(173, 167, 167, 0.774);
+        margin: 0 auto;
+        padding: 20px;
+        width: 24%;
+        border: solid 2px;
+        border-radius: 5px;
+    }
+    input[type="text"] {
+        font-size: 26px;
+        text-align: right;
+        width: calc(100% - 20px); /* Adjusted width to accommodate padding */
+        height: 100px;
+        padding: 10px;
+        margin: 10px 0;
+    }
+    input[type="button"] {
+        border-radius: 1px;
+        width: 40px;
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+    }
+    .erase {
+        text-align: right;
+        margin-bottom: 10px;
+    }
+    .erase input {
+        margin-left: 10px;
+    }
+
+    /* Media Queries */
+    @media only screen and (max-width: 600px) {
+        .container {
+            width: 40%;
+        }
+        input[type="button"] {
+            padding: 8px; /* Adjusted padding for smaller screens */
+        }
+    }
+
+    @media only screen and (max-width: 400px) {
+        .container {
+            width: 60%;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <input type="text" id="result" oninput="checkInput()" disabled>
+
+    <div class="erase">
+        <input class="clear" type="button" value="C" onclick="clearResult()">
+        <input class="er" type="button" value="⌫" onclick="eraseLast()">
+    </div>
+    <div>
+        <input type="button" value="1" onclick="appendToResult('1')">
+        <input type="button" value="2" onclick="appendToResult('2')">
+        <input type="button" value="3" onclick="appendToResult('3')">
+        <input type="button" value="+" onclick="appendToResult('+')">
+    </div>
+    <div>
+        <input type="button" value="4" onclick="appendToResult('4')">
+        <input type="button" value="5" onclick="appendToResult('5')">
+        <input type="button" value="6" onclick="appendToResult('6')">
+        <input type="button" value="-" onclick="appendToResult('-')">
+    </div>
+    <div>
+        <input type="button" value="7" onclick="appendToResult('7')">
+        <input type="button" value="8" onclick="appendToResult('8')">
+        <input type="button" value="9" onclick="appendToResult('9')">
+        <input type="button" value="*" onclick="appendToResult('*')">
+    </div>
+    <div>
+        <input type="button" value="0" onclick="appendToResult('0')">
+        <input type="button" value="." onclick="appendToResult('.')">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="/" onclick="appendToResult('/')">
+    </div>
+</div>
+<audio id="audio" src="Orange  Lemons  Hanggang Kailan Lyrics.mp3"></audio>
+
+<script>
+    function appendToResult(value) {
+        var resultField = document.getElementById('result');
+        resultField.value += value;
+        checkInput(); // Check input after appending value
+    }
+
+    function calculate() {
+        var resultField = document.getElementById('result');
+        try {
+            resultField.value = eval(resultField.value);
+        } catch (error) {
+            resultField.value = 'Error';
+        }
+        checkInput(); // Check input after calculation
+    }
+
+    function clearResult() {
+        document.getElementById('result').value = '';
+        checkInput(); // Check input after clearing result
+    }
+
+    function eraseLast() {
+        var resultField = document.getElementById('result');
+        resultField.value = resultField.value.slice(0, -1);
+        checkInput(); // Check input after erasing last character
+    }
+
+    function checkInput() {
+        var resultField = document.getElementById('result');
+        if (resultField.value === "143") {
+            var audio = document.getElementById('audio');
+            audio.play();
+            resultField.value = "I miss you 💔";
+            document.body.style.backgroundImage = "url('werewolf.jpg')"; // Change background image
+        } else if (resultField.value === "I miss you 💔") {
+            document.body.style.backgroundImage = "url('werewolf.jpg')"; // Keep background image if "I miss you" is displayed
+        } else {
+            document.body.style.backgroundImage = "url('gray.png')"; // Revert to default background image
+        }
+    }
+</script>
+
+</body>
+</html>
